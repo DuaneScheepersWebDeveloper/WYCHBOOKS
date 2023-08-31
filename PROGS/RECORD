@@ -1,0 +1,16 @@
+PROGRAM RECORD
+OPEN "BOOK_TITLES" TO BOOKTITLES ELSE
+   CRT "Cannot open the BOOK_TITLES File"
+   STOP
+END
+
+TitleId = 3
+   READ TitleRec FROM BOOKTITLES, TitleId ELSE
+   CRT "Cannot read this title"
+   STOP
+END
+
+CRT TitleRec
+STOP
+END
+* RUN PROGS RECORD

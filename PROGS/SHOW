@@ -1,0 +1,27 @@
+PROGRAM SHOWTITLE
+
+*Show a title details
+
+OPEN "BOOK_TITLES" TO BOOKTITLES ELSE
+   CRT "Cannot open the BOOK_TITLES File"
+   STOP
+END
+
+TitleId = 3
+READ TitleRec FROM BOOKTITLES, TitleId ELSE
+   CRT "Cannot read this title."
+   STOP
+END
+
+CRT "Short Title ":TitleRec<1>
+CRT "Author Id ":TitleRec<2>
+CRT "Type ":TitleRec<6>
+CRT "ISBN ":TitleRec<8>
+CRT "Stock ":TitleRec<5>
+CRT "Price ":OConv(TitleRec<9>,"MD2")
+CRT "Dept ":TitleRec<11>
+CRT "Genre ":TitleRec<12>
+
+STOP
+END
+* RUN PROGS SHOW

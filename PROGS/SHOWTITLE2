@@ -1,0 +1,37 @@
+PROGRAM ShowTitle2
+
+EQU DETAIL.DESC TO 1
+EQU DETAIL.AUTHOR TO 2
+EQU DETAIL.AUTHORNAME To 3
+EQU DETAIL.TYPE To 4
+EQU DETAIL.ISBN To 5
+EQU DETAIL.PRICE To 6
+EQU DETAIL.STOCK To 7
+EQU DETAIL.DEPT To 8
+EQU DETAIL.GENRE To 9
+
+Details=""
+Error=""
+
+* Set the TitleId you want to retrieve details for
+TitleId = 12
+
+CALL GetTitle (TitleId, Details, Error)
+
+IF ERROR <> "" THEN
+   CRT "Error ": Error
+   STOP
+END
+
+CRT "Description : ": Details<DETAIL.DESC>
+CRT "Author : ": Details<DETAIL.AUTHOR>
+CRT "Author Name : ": Details<DETAIL.AUTHORNAME>
+CRT "Type : ": Details<DETAIL.TYPE>
+CRT "ISBN : ": Details<DETAIL.ISBN>
+CRT "Stock : ": Details<DETAIL.STOCK>
+CRT "Price : ": Details<DETAIL.PRICE>
+CRT "Dept : ": Details<DETAIL.DEPT>
+CRT "Genre : ": Details<DETAIL.GENRE>
+
+STOP
+END

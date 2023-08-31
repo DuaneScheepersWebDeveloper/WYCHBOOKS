@@ -1,0 +1,21 @@
+LOGIN
+logto uvdev
+LOGIN
+Z demo.pa mntBOOK_SALES_WIN
+copy demo.pa mntBOOK_SALES_WIN
+Z demo.pa mntBOOK_SALES_WIN_ALLOC
+logto wychbooks
+LOGIN
+ED VOC mntBOOK_SALES_WIN_ALLOC
+ED VOC WINENTER_MAIN
+ED demo.pa WINENTER_MAIN
+Z blstd.source enter_slave
+Z demo.pa WINENTER_MAIN
+logto c:\wychbooks
+cd BOOK_TITLES
+cd BOOK_SALES
+cd BOOK_READERS
+cd BOOK_AUTHORS
+cd BOOK_SUPPLIES
+CD BOOK_SUPPLIERS
+q

@@ -1,0 +1,14 @@
+
+SUBROUTINE Greet (AName, Language, Greeting)
+
+Greeting = "HELLO ":AName
+   BEGIN CASE
+      CASE Language = "French"
+      Greeting = "Bonjour ":AName
+      CASE Language = "Italian"
+      Greeting = "Ciao ": AName
+      CASE Language = "German"
+      Greeting = "Guten Tag":AName
+   END CASE
+   RETURN
+END
