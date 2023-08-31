@@ -1,46 +1,55 @@
 SUBROUTINE GetTitle(TitleId, Details, Error )
 * Get Title details
-EQU DETAIL.DESC TO 1
-EQU DETAIL.AUTHOR TO 2
-EQU DETAIL.AUTHORNAME To 3
-EQU DETAIL.TYPE To 4
-EQU DETAIL.ISBN To 5
-EQU DETAIL.PRICE To 6
-EQU DETAIL.STOCK To 7
-EQU DETAIL.DEPT To 8
-EQU DETAIL.GENRE To 9
-EQU TITLE.TITLE To 1
-EQU TITLE.AUTHOR.ID To 2
-EQU TITLE.STOCK To 5
-EQU TITLE.TYPE To 6
-EQU TITLE.ISBN To 8
-EQU TITLE.PRICE To 9
-EQU TITLE.DEPT To 11
-EQU TITLE.GENRE To 12
+   EQU DETAIL.DESC TO 1
+   EQU DETAIL.AUTHOR TO 2
+   EQU DETAIL.AUTHORNAME To 3
+   EQU DETAIL.TYPE To 4
+   EQU DETAIL.ISBN To 5
+   EQU DETAIL.PRICE To 6
+   EQU DETAIL.STOCK To 7
+   EQU DETAIL.DEPT To 8
+   EQU DETAIL.GENRE To 9
+   EQU TITLE.TITLE To 1
+   EQU TITLE.AUTHOR.ID To 2
+   EQU TITLE.STOCK To 5
+   EQU TITLE.TYPE To 6
+   EQU TITLE.ISBN To 8
+   EQU TITLE.PRICE To 9
+   EQU TITLE.DEPT To 11
+   EQU TITLE.GENRE To 12
 Open "BOOK_TITLES" To BOOKTITLES Else
- Error = "Cannot open the BOOK_TITLES File"
- RETURN
+   Error = "Cannot open the BOOK_TITLES File"
+   RETURN
 END
 Open "BOOK_AUTHORS" To BOOKAUTHORS Else
- Error = "Cannot open the BOOK_AUTHORS File"
- RETURN
+   Error = "Cannot open the BOOK_AUTHORS File"
+   RETURN
 END
 Read TitleRec From BOOKTITLES, TitleId Else
- Error = "Cannot read title."
- RETURN
+   Error = "Cannot read title."
+   RETURN
 END
-Details = ""
-Details<DETAIL.DESC> = TitleRec<TITLE.TITLE>
-Details<DETAIL.AUTHOR> = TitleRec<TITLE.AUTHOR.ID>
-Read AuthorRec From BOOKAUTHORS, TitleRec<TITLE.AUTHOR.ID> Else
- AuthorRec = ""
+   Details = ""
+   Details<DETAIL.DESC> = TitleRec<TITLE.TITLE>
+   Details<DETAIL.AUTHOR> = TitleRec<TITLE.AUTHOR.ID>
+   Read AuthorRec From BOOKAUTHORS, TitleRec<TITLE.AUTHOR.ID> Else
+   AuthorRec = ""
 END
-Details<DETAIL.AUTHORNAME> = AuthorRec<1>
-Details<DETAIL.TYPE> = TitleRec<TITLE.TYPE>
-Details<DETAIL.ISBN> = TitleRec<TITLE.ISBN>
-Details<DETAIL.STOCK> = TitleRec<TITLE.STOCK>
-Details<DETAIL.PRICE> = OConv(TitleRec<TITLE.PRICE>,"MD2")
-Details<DETAIL.DEPT> = TitleRec<TITLE.DEPT>
-Details<DETAIL.GENRE> = TitleRec<TITLE.GENRE>
-RETURN
+   Details<DETAIL.AUTHORNAME> = AuthorRec<1>
+   Details<DETAIL.TYPE> = TitleRec<TITLE.TYPE>
+   Details<DETAIL.ISBN> = TitleRec<TITLE.ISBN>
+   Details<DETAIL.STOCK> = TitleRec<TITLE.STOCK>
+   Details<DETAIL.PRICE> = OConv(TitleRec<TITLE.PRICE>,"MD2")
+   Details<DETAIL.DEPT> = TitleRec<TITLE.DEPT>
+   Details<DETAIL.GENRE> = TitleRec<TITLE.GENRE>
+   RETURN
+
+ReadU TitleRec From BOOKTITLES, TitleId Locked
+   ERROR = "This record is locked."
+   RETURN
+END ELSE
+   Error = "Cannot read title."
+   Release BOOKTITLES, TitleId
+   RETURN
+END
 END

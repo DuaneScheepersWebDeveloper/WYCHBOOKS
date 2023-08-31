@@ -1,0 +1,68 @@
+SUBROUTINE WriteTitle(TitleId, Details, Error)
+
+*Write back title details
+
+   EQU DETAIL.DESC TO 1
+   EQU DETAIL.AUTHOR TO 2
+   EQU DETAIL.AUTHORNAME To 3
+   EQU DETAIL.TYPE To 4
+   EQU DETAIL.ISBN To 5
+   EQU DETAIL.PRICE To 6
+   EQU DETAIL.STOCK To 7
+   EQU DETAIL.DEPT To 8
+   EQU DETAIL.GENRE To 9
+
+   Error = ""
+
+   OPEN "BOOK_TITLES" TO BOOKTITLES ELSE
+      ERROR = "Cannot open the BOOK_TITLES File"
+      RETURN
+   END
+
+   READ TitleRec FROM BOOKTITLES ELSE
+      ERROR = "Cannot open the BOOL_TITLES File"
+      RETURN
+   END
+
+   TitleRec<1> = Details<DETAIL.DESC>
+   TitleRec<2> = Details<DETAIL.AUTHOR>
+   TitleRec<6> = Details<DETAIL.TYPE>
+   TitleRec<8> = Details<DETAIL.ISBN>
+   TitleRec<5> = Details<DETAIL.STOCK>
+   TitleRec<9> = IConv(Details<DETAIL.PRICE>, "MD2")
+   TitleRec<11> = Details<DETAIL.DEPT>
+   TitleRec<12> = Details<DETAIL.GENRE>
+
+   WRITE TitleRec ON BOOKTITLES, TitleId
+
+   RETURN
+
+*--------------------------------------------------------------
+* Validate
+*--------------------------------------------------------------
+Validate:
+   IF NOT( Num( Details<DETAIL.STOCK>)) THEN
+      ERROR = "Stock level must be a number."
+      RETURN
+   END
+   IF Details<DETAIL.STOCK> < 0 THEN
+      ERROR = "Cannot have negative stock."
+      RETURN
+   END
+   IF LEN(Details<DETAIL.ISBN>) <> 10 THEN
+      ERROR = "ISBN must be 10 characters long."
+      RETURN
+   END
+   IF NOT((Details<DETAIL.ISBN> Match "9N'X'") Or (Details<DETAIL.ISBN> Match "10N")) THEN
+      ERROR = "ISBN must be 10 numbers or 9 numbers followed by X"
+      RETURN
+   END
+   IF NOT(Details<DETAIL.PRICE> Match "1N0N'.'2N") THEN
+      ERROR = "Price must be a decimal number."
+      RETURN
+   END
+   IF NOT(Details<DETAIL.DEPT> = "ADULT" Or Details<DETAIL.DEPT> = "JUNIOR") THEN
+      ERROR = "Dept must be ADULT or JUNIOR"
+      RETURN
+   END
+      RETURN

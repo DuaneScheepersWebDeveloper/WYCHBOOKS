@@ -1,0 +1,26 @@
+{
+   "[rocket-mvbasic]": {
+      "editor.codeLens": false
+   },
+   "files.associations": {
+      "**/U1/*/*/*/*": "unibasic",
+      "**/U2/*/*/*/*": "unibasic",
+      "**/U3/*/*/*/*": "unibasic",
+      "**/U4/*/*/*/*": "unibasic",
+      "**/U5/*/*/*/*": "unibasic",
+      "**/U6/*/*/*/*": "unibasic",
+      "**/*/*/*DEV*/*/*": "unibasic",
+      "**/.rmv/config/*.json": "jsonc"
+   },
+   "files.exclude": {
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/CVS": true,
+      "**/.DS_Store": true,
+      "**/Thumbs.db": true,
+      "**/.O": true,
+      "**/.rmv/catalog/**": true,
+      "*/_*": false
+   }
+}
